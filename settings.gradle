@@ -1,0 +1,3 @@
+rootProject.name = 'radio_application'
+
+include 'client', 'service'

@@ -1,0 +1,19 @@
+<div [ngStyle]="backgroundStyle">
+  <music-details
+    [title]="title"
+  ></music-details>
+
+  <music-player
+    (backward)="handleBackward()"
+    (forward)="handleForward()"
+    (pauseplay)="handlePausePlay()"
+    (stop)="handleStop()"
+    [paused]="paused"
+  ></music-player>
+
+  <music-progress
+    [current]="position"
+    [elapsed]="elapsed"
+    [total]="duration"
+  ></music-progress>
+</div>
