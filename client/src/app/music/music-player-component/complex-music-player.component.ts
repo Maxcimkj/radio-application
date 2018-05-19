@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Track} from "../track";
 import {MusicService} from "../shared/music.service";
-import {TrackIterator} from "../TrackIterator";
+import {TrackIterator} from "../track.iterator";
 
 @Component({
   selector: 'music-player-component',
@@ -16,6 +16,7 @@ export class ComplexMusicPlayerComponent implements OnInit {
   paused = true;
   backgroundStyle;
   tracks: TrackIterator;
+  tracksLoaded = true;
 
   constructor(private musicService: MusicService) {
   }
@@ -30,10 +31,11 @@ export class ComplexMusicPlayerComponent implements OnInit {
   }
 
   loadTracks() {
-    this.musicService.getRandomTracks().subscribe(tracks => {
-      console.log("Player component: loaded traks: " + JSON.stringify(tracks as Track[]));
-      this.tracks = new TrackIterator(tracks);
+    this.musicService.getRandomTracks().subscribe(inputTracks => {
+      console.log("Player component: loaded traks: " + JSON.stringify(inputTracks as Track[]));
+      this.tracks = new TrackIterator(inputTracks);
       this.setTrack(this.tracks.next());
+      this.tracksLoaded = !this.tracks.isEmpty();
     });
   }
 

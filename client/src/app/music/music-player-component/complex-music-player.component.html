@@ -1,19 +1,25 @@
-<div [ngStyle]="backgroundStyle">
-  <music-details
-    [title]="title"
-  ></music-details>
+<div *ngIf="tracksLoaded">
+  <div [ngStyle]="backgroundStyle">
+    <music-details
+      [title]="title"
+    ></music-details>
 
-  <music-player
-    (backward)="handleBackward()"
-    (forward)="handleForward()"
-    (pauseplay)="handlePausePlay()"
-    (stop)="handleStop()"
-    [paused]="paused"
-  ></music-player>
+    <music-player
+      (backward)="handleBackward()"
+      (forward)="handleForward()"
+      (pauseplay)="handlePausePlay()"
+      (stop)="handleStop()"
+      [paused]="paused"
+    ></music-player>
 
-  <music-progress
-    [current]="position"
-    [elapsed]="elapsed"
-    [total]="duration"
-  ></music-progress>
+    <music-progress
+      [current]="position"
+      [elapsed]="elapsed"
+      [total]="duration"
+    ></music-progress>
+  </div>
+  <div style="height: 30px"></div>
+</div>
+<div *ngIf="!tracksLoaded">
+  Tracks don't find for this style or artist.
 </div>

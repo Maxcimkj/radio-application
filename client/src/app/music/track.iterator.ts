@@ -35,4 +35,8 @@ export class TrackIterator {
   hasLastReturned() {
     return this.lastReturnedIndex > 0;
   }
+
+  isEmpty(): boolean {
+    return this.size <= 0;
+  }
 }
