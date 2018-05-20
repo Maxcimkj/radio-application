@@ -9,10 +9,12 @@ import {HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api";
 import {InMemoryGenreDataService} from "./in-memory-genre-data.service";
 import {MessageService} from './message.service';
 import {MusicModule} from "./music/music.module";
+import { StyleSelectComponent } from './style-select/style-select.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StyleSelectComponent
   ],
   imports: [
     BrowserModule,
