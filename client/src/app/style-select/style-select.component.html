@@ -2,12 +2,12 @@
   <div class="input-group mb-3">
     <div class="input-group">
       <input type="text" class="form-control" id="search"
-             aria-label="Text input with dropdown button" required [(ngModel)]="search" name="search">
-      <input type="text" id="type" [(ngModel)]="type" name="type" required [style.display]="'none'">
+             aria-label="Text input with dropdown button" required [(ngModel)]="searchRequest.search" name="search">
+      <input type="text" id="type" [(ngModel)]="searchRequest.type" name="type" required [style.display]="'none'">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-          {{type}}
+          {{searchRequest.type}}
         </button>
         <div class="dropdown-menu">
           <a class="dropdown-item" href="#" *ngFor="let type of searchTypes" (click)="onSelectSearchType(type)">

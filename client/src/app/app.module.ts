@@ -1,30 +1,35 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
-import {GenreService} from "./genre.service";
+import {StyleService} from "./style.service";
 import {HttpClientModule} from "@angular/common/http";
 import {HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api";
 import {InMemoryGenreDataService} from "./in-memory-genre-data.service";
-import {MessageService} from './message.service';
-import {MusicModule} from "./music/music.module";
-import { StyleSelectComponent } from './style-select/style-select.component';
+import {StyleSelectComponent} from './style-select/style-select.component';
+
+import {MusicPlayerComponent} from './music-player/music-player.component';
+import {MusicDetailsComponent} from './music-details/music-details.component';
+import {MusicProgressComponent} from './music-progress/music-progress.component';
+import {MusicService} from "./music.service";
 
 @NgModule({
   declarations: [
     AppComponent,
-    StyleSelectComponent
+    StyleSelectComponent,
+    MusicDetailsComponent,
+    MusicPlayerComponent,
+    MusicProgressComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryGenreDataService, {dataEncapsulation: false}),
-    MusicModule,
     FormsModule
   ],
-  providers: [GenreService, MessageService],
+  providers: [StyleService, MusicService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
