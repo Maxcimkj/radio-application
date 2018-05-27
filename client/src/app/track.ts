@@ -1,8 +1,8 @@
 export class Track {
   id: number;
   name: string;
-  songer: string;
-  album: string;
+  artist: string;
+  release: string;
   duration: number;
   cover: string;
   url: string;

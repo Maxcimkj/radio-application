@@ -9,16 +9,16 @@
   margin-right: 10px;
 }
 
-
 .player .player__backward button, .player .player__forward button{
   background: transparent;
-  border: 1px solid rgb(190,190,190);
-  color: rgb(190,190,190);
+  border: 2px solid darkmagenta;
+  color: deeppink;
   width: 75px;
   height: 75px;
-  border-radius: 100%;
+  border-radius:100%;
   font-size: 35px;
   outline: none;
+  box-shadow: 0 0 20px darkmagenta, inset 0 0 20px darkmagenta;
 }
 
 .player .player__backward button{
@@ -30,16 +30,18 @@
 }
 
 .player .player__main button:hover, .player .player__backward button:hover, .player .player__forward button:hover{
-  color: rgb(190,190,190);
-  border: 1px solid rgb(190,190,190);
+  color: deeppink;
+  border: 2px solid darkmagenta;
+  box-shadow: 0 0 30px darkmagenta, inset 0 0 30px darkmagenta;
 }
 
 .player .player__main {
-  border: 1px solid rgb(190,190,190);
+  border: 2px solid darkmagenta;
+  box-shadow: 0 0 20px darkmagenta, inset 0 0 20px darkmagenta;
 }
 
 .player .player__main button {
-  color: rgb(190,190,190);
+  color: deeppink;
   background: transparent;
   width: 75px;
   height: 75px;
@@ -47,3 +49,4 @@
   font-size: 35px;
   outline: none;
 }
+

@@ -1,0 +1,63 @@
+.search-input {
+  border: 2px solid darkmagenta;
+  box-shadow: 0 0 30px darkmagenta;
+  background-color: pink;
+  color: deeppink;
+}
+
+.search-input:focus {
+  box-shadow: 0 0 50px darkmagenta;
+}
+
+.input-group-append .select-search-button {
+  background: transparent;
+  color: deeppink;
+  box-shadow: 0 0 30px darkmagenta;
+  border: 2px solid darkmagenta;
+}
+
+.input-group-append .select-search-button:hover {
+  box-shadow: 0 0 50px darkmagenta;
+}
+
+.input-group-append button.select-search-button[aria-expanded='true'] {
+  background: pink;
+}
+
+.input-group-append .dropdown-menu {
+  color: deeppink;
+  background: pink;
+  box-shadow: 0 0 30px darkmagenta;
+  border: 2px solid darkmagenta;
+}
+
+.input-group-append .dropdown-menu > a {
+  color: deeppink;
+}
+
+.input-group-append .dropdown-menu > a:hover {
+  background: transparent;
+  box-shadow: 0 0 30px darkmagenta, 0 0 30px darkmagenta inset;
+  border: 0px solid darkmagenta;
+}
+
+.listen-button-container {
+  width: 100%;
+}
+
+.listen-button {
+  width: 80%;
+  height: 60%;
+  margin: 20% 10%;
+  background: transparent;
+  border: 2px solid darkmagenta;
+  color: deeppink;
+  box-shadow: 0 0 30px darkmagenta, 0 0 30px darkmagenta inset;
+  font-size: 30pt;
+  text-shadow: 0 0 30px;
+}
+
+.listen-button:hover {
+  box-shadow: 0 0 50px darkmagenta, 0 0 50px darkmagenta inset;
+  text-shadow: 0 0 50px;
+}

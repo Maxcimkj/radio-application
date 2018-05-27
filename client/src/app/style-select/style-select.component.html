@@ -1,25 +1,32 @@
 <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
-  <div class="input-group mb-3">
-    <div class="input-group">
-      <input type="text" class="form-control" id="search"
-             aria-label="Text input with dropdown button" required [(ngModel)]="searchRequest.search" name="search">
-      <input type="text" id="type" [(ngModel)]="searchRequest.type" name="type" required [style.display]="'none'">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-          {{searchRequest.type}}
-        </button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#" *ngFor="let type of searchTypes" (click)="onSelectSearchType(type)">
-            {{type}}
-          </a>
+  <div class="row">
+    <div class="col">
+      <div class="input-group mb-3">
+        <div class="input-group">
+          <input type="text" class="form-control search-input" id="search"
+                 aria-label="Text input with dropdown button" required [(ngModel)]="searchRequest.search" name="search">
+          <input type="text" id="type" [(ngModel)]="searchRequest.type" name="type" required [style.display]="'none'">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary dropdown-toggle select-search-button" type="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+              {{searchRequest.type}}
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#" *ngFor="let type of searchTypes" (click)="onSelectSearchType(type)">
+                {{type}}
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <nav>
-    <button type="submit" [disabled]="!searchForm.form.valid">
-      <img src="../assets/images/vinil_disc_image.gif" height="250px" width="310px"/>
-    </button>
-  </nav>
+  <div class="row">
+    <div class="col" class="listen-button-container">
+      <button type="submit" class="listen-button align-middle" [disabled]="!searchForm.form.valid">
+        LISTEN
+      </button>
+    </div>
+  </div>
 </form>

@@ -6,6 +6,8 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./music-details.component.css'],
 })
 export class MusicDetailsComponent {
-  @Input() title: string;
+  @Input() name: string;
+  @Input() artist: string;
+  @Input() release: string;
 }
 

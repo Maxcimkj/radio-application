@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {TrackIterator} from "./track.iterator";
 import {MusicService} from "./music.service";
 import {Track} from "./track";
@@ -9,7 +9,9 @@ import {Track} from "./track";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title;
+  name;
+  artist;
+  release;
   position;
   elapsed;
   duration;
@@ -41,7 +43,13 @@ export class AppComponent {
 
   setTrack(track: Track) {
     this.musicService.load(track.url);
-    this.title = track.name;
+
+    this.name = track.name;
+    this.artist = track.artist;
+    this.release = track.release;
+
+    console.log('set track ' + track.name + ' ' + track.artist + ' ' + track.release);
+
     if (!this.paused) {
       this.musicService.audio.play();
     }

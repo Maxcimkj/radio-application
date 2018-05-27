@@ -1,12 +1,13 @@
 body {
-  background: url('./assets/images/concert_music_crowd.png') no-repeat center center fixed;
+  background-color: black !important;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
 }
 
-.info-badge {
-  pointer-events: none;
-  cursor: default;
+.card.player-container {
+  background: transparent !important;
+  border: 2px solid white !important;
+  box-shadow: 0 0 30px pink, inset 0 0 30px pink;
 }

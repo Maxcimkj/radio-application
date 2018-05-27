@@ -1,13 +1,15 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-4">
       <style-select-component (sendSearchRequest)="handleSearchRequest($event)"></style-select-component>
     </div>
-    <div class="col-lg-6">
-      <div *ngIf="tracksLoaded">
+    <div class="col-lg-8">
+      <div *ngIf="tracksLoaded" class="card player-container">
         <div [ngStyle]="backgroundStyle">
           <music-details
-            [title]="title"
+            [name]="name"
+            [artist]="artist"
+            [release]="release"
           ></music-details>
           <music-player
             (backward)="handleBackward()"
