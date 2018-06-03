@@ -1,47 +1,51 @@
-.player{
+.player {
   text-align: center;
   margin-top: 40px;
 }
 
-.player div{
+.player div {
   display: inline-block;
   margin-left: 10px;
   margin-right: 10px;
 }
 
-.player .player__backward button, .player .player__forward button{
+.player .player__backward button, .player .player__forward button {
   background: transparent;
-  border: 2px solid darkmagenta;
-  color: deeppink;
+  border: 1px solid white;
+  color: var(--component-content-color);
   width: 75px;
   height: 75px;
-  border-radius:100%;
+  border-radius: 100%;
   font-size: 35px;
   outline: none;
-  box-shadow: 0 0 20px darkmagenta, inset 0 0 20px darkmagenta;
+  box-shadow: 0 0 20px var(--component-border-color),
+  inset 0 0 20px var(--component-border-color);
 }
 
-.player .player__backward button{
+.player .player__backward button {
   border-left: none;
 }
 
-.player .player__forward button{
+.player .player__forward button {
   border-right: none;
 }
 
-.player .player__main button:hover, .player .player__backward button:hover, .player .player__forward button:hover{
-  color: deeppink;
-  border: 2px solid darkmagenta;
-  box-shadow: 0 0 30px darkmagenta, inset 0 0 30px darkmagenta;
+.player .player__main button:not([disabled]):hover, .player .player__backward button:not([disabled]):hover,
+.player .player__forward button:not([disabled]):hover {
+  color: var(--component-content-color);
+  border: 1px solid white;
+  box-shadow: 0 0 30px var(--component-border-color),
+  inset 0 0 30px var(--component-border-color);
 }
 
 .player .player__main {
-  border: 2px solid darkmagenta;
-  box-shadow: 0 0 20px darkmagenta, inset 0 0 20px darkmagenta;
+  border: 1px solid white;
+  box-shadow: 0 0 20px var(--component-border-color),
+  inset 0 0 20px var(--component-border-color);
 }
 
 .player .player__main button {
-  color: deeppink;
+  color: var(--component-content-color);
   background: transparent;
   width: 75px;
   height: 75px;

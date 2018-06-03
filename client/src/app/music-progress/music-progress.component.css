@@ -7,7 +7,8 @@
 }
 
 .progress progress {
-  box-shadow: 0 0 30px darkmagenta;
+  box-shadow: 0 0 60px var(--component-border-color);
+  border: 1px solid var(--component-border-color);
 }
 
 .progress progress[value] {
@@ -15,7 +16,7 @@
   -webkit-appearance: none;
   appearance: none;
 
-  background: pink;
+  background: var(--component-background-color);
 
   width: 390px;
   margin-left: 4px;
@@ -23,20 +24,20 @@
 }
 
 .progress progress[value]::-moz-progress-bar {
-  background: deeppink;
+  background: var(--component-content-color);
   border-radius: 2px;
-  box-shadow: 0 2px 10px darkmagenta;
+  box-shadow: 0 0px 30px var(--component-border-color);
 }
 
 .progress progress[value]::-webkit-progress-bar {
-  background: pink;
+  background: var(--component-background-color);
   border-radius: 2px;
-  box-shadow: 0 2px 10px darkmagenta;
+  box-shadow: 0 0px 30px var(--component-border-color);
 }
 
 .progress progress[value]::-webkit-progress-value {
-  background: deeppink;
+  background: var(--component-content-color);
   border-radius: 2px;
   background-size: 35px 20px, 100% 100%, 100% 100%;
-  box-shadow: 0 2px 10px darkmagenta;
+  box-shadow: 0 0px 30px var(--component-border-color);
 }

@@ -1,7 +1,7 @@
-
 .details h3{
   text-align: center;
   padding: 20px 10px;
   margin: 0;
-  color: deeppink;
+  color: var(--component-content-color);
+  text-transform: uppercase;
 }

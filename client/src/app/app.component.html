@@ -1,22 +1,25 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-5">
       <style-select-component (sendSearchRequest)="handleSearchRequest($event)"></style-select-component>
     </div>
-    <div class="col-lg-8">
-      <div *ngIf="tracksLoaded" class="card player-container">
-        <div [ngStyle]="backgroundStyle">
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-6">
+      <div class="card player-container">
+        <div>
           <music-details
             [name]="name"
             [artist]="artist"
             [release]="release"
+            [state]="playerState"
           ></music-details>
           <music-player
             (backward)="handleBackward()"
             (forward)="handleForward()"
             (pauseplay)="handlePausePlay()"
             (stop)="handleStop()"
-            [paused]="paused"
+            [state]="playerState"
           ></music-player>
           <music-progress
             [current]="position"
@@ -24,10 +27,7 @@
             [total]="duration"
           ></music-progress>
         </div>
-        <div style="height: 30px"></div>
-      </div>
-      <div *ngIf="!tracksLoaded">
-        Tracks don't find for this style or artist.
+        <div class="border-container"></div>
       </div>
     </div>
   </div>

@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
-import {TrackIterator} from "./track.iterator";
+import {TrackIterator} from "./track-iterator";
 import {MusicService} from "./music.service";
 import {Track} from "./track";
+import {PlayerState} from "./player-state";
 
 @Component({
   selector: 'app-root',
@@ -15,11 +16,11 @@ export class AppComponent {
   position;
   elapsed;
   duration;
-  paused = true;
-  backgroundStyle;
+
   tracks: TrackIterator;
-  tracksLoaded = true;
-  searchRequest;
+  playerState: PlayerState = PlayerState.START;
+  searchType;
+  search;
 
   constructor(private musicService: MusicService) {
   }
@@ -29,15 +30,17 @@ export class AppComponent {
 
     this.musicService.audio.onended = this.handleEnded.bind(this);
     this.musicService.audio.ontimeupdate = this.handleTimeUpdate.bind(this);
-    this.paused = true;
   }
 
   loadTracks() {
-    this.musicService.getTracks(this.searchRequest).subscribe(inputTracks => {
-      console.log("Player component: loaded traks: " + JSON.stringify(inputTracks as Track[]));
-      this.tracks = new TrackIterator(inputTracks);
-      this.setTrack(this.tracks.next());
-      this.tracksLoaded = !this.tracks.isEmpty();
+    this.musicService.getTracks(this.searchType, this.search).subscribe(inputTracks => {
+      console.log("Player component: loaded tracks: " + JSON.stringify(inputTracks as Track[]));
+      if (inputTracks.length > 0) {
+        this.tracks = new TrackIterator(inputTracks);
+        this.setTrack(this.tracks.next());
+      } else {
+        this.playerState = PlayerState.NOT_LOADED;
+      }
     });
   }
 
@@ -50,8 +53,9 @@ export class AppComponent {
 
     console.log('set track ' + track.name + ' ' + track.artist + ' ' + track.release);
 
-    if (!this.paused) {
+    if (this.playerState != PlayerState.PAUSED) {
       this.musicService.audio.play();
+      this.playerState = PlayerState.PLAY;
     }
   }
 
@@ -74,12 +78,12 @@ export class AppComponent {
   }
 
   handlePausePlay() {
-    console.log("hande pause/play");
+    console.log("handle pause/play: " + this.playerState);
     if (this.musicService.audio.paused) {
-      this.paused = false;
+      this.playerState = PlayerState.PLAY;
       this.musicService.audio.play()
     } else {
-      this.paused = true;
+      this.playerState = PlayerState.PAUSED;
       this.musicService.audio.pause()
     }
   }
@@ -88,7 +92,7 @@ export class AppComponent {
     console.log("handle stop");
     this.musicService.audio.pause();
     this.musicService.audio.currentTime = 0;
-    this.paused = true;
+    this.playerState = PlayerState.STOP;
   }
 
   handleBackward() {
@@ -106,7 +110,6 @@ export class AppComponent {
   }
 
   handleTimeUpdate(e) {
-    console.log("handle time update");
     this.timeUpdate();
   }
 
@@ -125,7 +128,15 @@ export class AppComponent {
   }
 
   handleSearchRequest(event) {
-    this.searchRequest = event;
+    this.searchType = event.type;
+    this.search = event.search;
+
+    if(this.playerState == PlayerState.PLAY) {
+      this.musicService.audio.pause();
+      this.playerState = PlayerState.STOP;
+      this.musicService.audio.currentTime = 0;
+    }
+
     this.loadTracks();
   }
 }

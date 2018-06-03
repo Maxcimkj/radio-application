@@ -1,13 +1,13 @@
+:root {
+  --component-background-color: black;
+  --component-border-color: deepskyblue;
+  --component-content-color: deeppink;
+}
+
 body {
   background-color: black !important;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
-}
-
-.card.player-container {
-  background: transparent !important;
-  border: 2px solid white !important;
-  box-shadow: 0 0 30px pink, inset 0 0 30px pink;
 }

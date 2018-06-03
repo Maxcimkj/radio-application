@@ -4,6 +4,7 @@ import {Observable} from "rxjs/Observable";
 import {catchError, tap} from "rxjs/operators";
 import {Track} from "./track";
 import {of} from "rxjs/observable/of";
+import {SearchType} from "./search-type";
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -20,10 +21,10 @@ export class MusicService {
     this.audio = new Audio();
   }
 
-  getTracks(searchRequest): Observable<Track[]> {
+  getTracks(searchType: SearchType, search: String): Observable<Track[]> {
     let url = this.tracksUrl +
-      ((searchRequest.type == 'style') ? '?style=' + searchRequest.search :
-      (searchRequest.type == 'artist') ? '?artist=' + searchRequest.search : '');
+      ((searchType == SearchType.STYLE) ? '?style=' + search :
+        (searchType == SearchType.ARTIST) ? '?artist=' + search : '');
     console.log("MusicService: tracks url - " + url);
     return this.http.get<Track[]>(url);
   }
@@ -35,7 +36,6 @@ export class MusicService {
   }
 
   static formatTime(seconds) {
-    console.log("MusicService: format time: " + seconds);
     let minutes: any = Math.floor(seconds / 60);
     minutes = (minutes >= 10) ? minutes : "0" + minutes;
     seconds = Math.floor(seconds % 60);

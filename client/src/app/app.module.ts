@@ -13,6 +13,8 @@ import {MusicPlayerComponent} from './music-player/music-player.component';
 import {MusicDetailsComponent} from './music-details/music-details.component';
 import {MusicProgressComponent} from './music-progress/music-progress.component';
 import {MusicService} from "./music.service";
+import {PlayerState} from "./player-state";
+import {SearchType} from "./search-type";
 
 @NgModule({
   declarations: [

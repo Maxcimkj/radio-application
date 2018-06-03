@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MusicPlayerComponent} from "../music-player/music-player.component";
 import {MusicSearchRequest} from "../music.search.request";
+import {SearchType} from "../search-type";
 
 @Component({
   selector: 'style-select-component',
@@ -10,8 +11,8 @@ import {MusicSearchRequest} from "../music.search.request";
 export class StyleSelectComponent implements OnInit {
   @Output() sendSearchRequest = new EventEmitter<MusicSearchRequest>();
 
-  searchRequest = new MusicSearchRequest('style', '');
-  searchTypes: string[] = ['style', 'artist'];
+  searchRequest = new MusicSearchRequest(SearchType.STYLE, '');
+  searchTypes = Object.keys(SearchType);
 
   constructor() {
   }
