@@ -1,35 +1,14 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-5">
-      <style-select-component (sendSearchRequest)="handleSearchRequest($event)"></style-select-component>
+      <music-search-component [searchRequestEvent]="searchEvent"></music-search-component>
     </div>
     <div class="col-lg-1">
     </div>
     <div class="col-lg-6">
-      <div class="card player-container">
-        <div>
-          <music-details
-            [name]="name"
-            [artist]="artist"
-            [release]="release"
-            [state]="playerState"
-          ></music-details>
-          <music-player
-            (backward)="handleBackward()"
-            (forward)="handleForward()"
-            (pauseplay)="handlePausePlay()"
-            (stop)="handleStop()"
-            [state]="playerState"
-          ></music-player>
-          <music-progress
-            [current]="position"
-            [elapsed]="elapsed"
-            [total]="duration"
-          ></music-progress>
-        </div>
-        <div class="border-container"></div>
-      </div>
+      <music-player-block [searchRequestEvent]="searchEvent"></music-player-block>
     </div>
   </div>
 </div>
+
 

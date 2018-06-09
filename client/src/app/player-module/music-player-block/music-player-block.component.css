@@ -1,0 +1,10 @@
+.card.player-container {
+  background: var(--component-background-color) !important;
+  border: 2px solid white !important;
+  box-shadow: 0 0 30px var(--component-border-color),
+  inset 0 0 30px var(--component-border-color);
+}
+
+.content-container {
+  margin: 0 5px 15px
+}

@@ -6,8 +6,6 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./music-progress.component.css'],
 })
 export class MusicProgressComponent {
-  @Input() elapsed: string;
-  @Input() total: string;
   @Input() current: number;
 }
 

@@ -1,6 +1,6 @@
 import {InMemoryDbService} from 'angular-in-memory-web-api';
 
-export class InMemoryGenreDataService implements InMemoryDbService {
+export class InMemoryMusicDataService implements InMemoryDbService {
   createDb() {
     const genres = [
       {id: 1, name: 'Ambient', main: -9},

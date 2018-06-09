@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StyleSelectComponent } from './style-select.component';
+import { MusicSearchComponent } from './style-select.component';
 
 describe('StyleSelectComponent', () => {
-  let component: StyleSelectComponent;
-  let fixture: ComponentFixture<StyleSelectComponent>;
+  let component: MusicSearchComponent;
+  let fixture: ComponentFixture<MusicSearchComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StyleSelectComponent ]
+      declarations: [ MusicSearchComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StyleSelectComponent);
+    fixture = TestBed.createComponent(MusicSearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

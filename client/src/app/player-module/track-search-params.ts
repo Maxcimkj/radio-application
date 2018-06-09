@@ -1,6 +1,9 @@
-import {SearchType} from "./search-type";
+export enum SearchType {
+  ARTIST = 'Artist',
+  STYLE = 'Style'
+}
 
-export class MusicSearchRequest {
+export class TrackSearchParams {
   type: SearchType;
   search: string;
 
