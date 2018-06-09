@@ -9,7 +9,7 @@ import {PlayerService, PlayerState} from "../player.service";
 })
 export class MusicPlayerBlockComponent implements OnInit {
   static loadErrorMsg = 'Error load';
-  static notLoadedInfo = 'Tracks for this artist ot style don\'t find';
+  static notLoadedInfo = 'Tracks for this artist ot style not found';
   static startInfo = 'Search tracks by style or artist';
 
 

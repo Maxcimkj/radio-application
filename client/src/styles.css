@@ -2,12 +2,23 @@
   --component-background-color: black;
   --component-border-color: deepskyblue;
   --component-content-color: deeppink;
+  --text-color: white;
 }
 
 body {
-  background-color: black !important;
+  background: url(assets/images/starry-sky.jpg);
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
+}
+
+.main-title {
+  color: white;
+  text-shadow: 1px 1px 2px var(--component-border-color), 0 0 1em var(--component-border-color);
+}
+
+.sub-header {
+  color: white;
+  text-shadow: 1px 1px 2px var(--component-content-color), 0 0 1em var(--component-content-color);
 }

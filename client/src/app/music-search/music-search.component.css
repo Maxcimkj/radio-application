@@ -1,7 +1,7 @@
 .search-input {
   border: 2px solid var(--component-border-color);
   background-color: var(--component-background-color);
-  color: var(--component-content-color);
+  color: var(--text-color);
 }
 
 .input-group-append .select-search-button {
@@ -40,7 +40,7 @@
 
 .listen-button {
   width: 100%;
-  background: transparent;
+  background: var(--component-background-color);
   border: 2px solid var(--component-border-color);
   color: var(--component-content-color);
   font-size: 30pt;
