@@ -1,5 +1,5 @@
 import {Component, EventEmitter} from '@angular/core';
-import {TrackSearchParams} from "./player-module/track-search-params";
+import {TrackSearchParams} from "./track-search-params";
 
 @Component({
   selector: 'app-root',

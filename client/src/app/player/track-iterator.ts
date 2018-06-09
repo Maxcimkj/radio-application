@@ -1,4 +1,4 @@
-import {Track} from "./track";
+import {Track} from "../model/track";
 
 export class TrackIterator {
   private size;

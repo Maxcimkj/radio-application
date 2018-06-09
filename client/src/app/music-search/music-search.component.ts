@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit} from '@angular/core';
-import {SearchType, TrackSearchParams} from "../player-module/track-search-params";
-import {LogService} from "../log.service";
+import {SearchType, TrackSearchParams} from "../track-search-params";
+import {LogService} from "../services/log.service";
 
 @Component({
   selector: 'music-search-component',

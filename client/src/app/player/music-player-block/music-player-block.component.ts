@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit} from '@angular/core';
-import {TrackSearchParams} from "../track-search-params";
+import {TrackSearchParams} from "../../track-search-params";
 import {PlayerService, PlayerState} from "../player.service";
 
 @Component({

@@ -1,10 +1,10 @@
 import {EventEmitter, Injectable} from "@angular/core";
 import {TrackIterator} from "./track-iterator";
-import {Track} from "./track";
-import {TrackService} from "./track.service";
-import {SearchType, TrackSearchParams} from "./track-search-params";
+import {Track} from "../model/track";
+import {TrackService} from "../services/track.service";
+import {SearchType, TrackSearchParams} from "../track-search-params";
 import {Observable} from "rxjs/Observable";
-import {LogService} from "../log.service";
+import {LogService} from "../services/log.service";
 
 export enum PlayerState {
   INIT = 'Init',
