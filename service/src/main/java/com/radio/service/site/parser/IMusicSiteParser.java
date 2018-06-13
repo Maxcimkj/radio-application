@@ -8,17 +8,17 @@ import java.util.Collection;
 import java.util.Optional;
 
 public interface IMusicSiteParser {
-    class TrackBlock implements Serializable {
+    class Tracks implements Serializable {
         public Collection<Track> tracks;
         public Collection<Style> styles;
 
-        public TrackBlock(Collection<Track> tracks, Collection<Style> styles) {
+        public Tracks(Collection<Track> tracks, Collection<Style> styles) {
             this.tracks = tracks;
             this.styles = styles;
         }
     }
 
-    Optional<TrackBlock> searchTracksByStyle(String style) throws Exception;
+    Optional<Tracks> getRandomTracksByStyle(String style) throws Exception;
 
-    Optional<TrackBlock> searchTracksByArtist(String artist) throws Exception;
+    Optional<Tracks> getRandomTracksByArtist(String artist) throws Exception;
 }

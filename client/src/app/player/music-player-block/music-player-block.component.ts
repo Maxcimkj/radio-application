@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit} from '@angular/core';
 import {TrackSearchParams} from "../../track-search-params";
-import {PlayerService, PlayerState} from "../player.service";
+import {PlayerController, PlayerState} from "../player-controller";
 
 @Component({
   selector: 'music-player-block',
@@ -22,17 +22,17 @@ export class MusicPlayerBlockComponent implements OnInit {
   track;
 
 
-  constructor(public playerService: PlayerService) {
+  constructor(public playerService: PlayerController) {
   }
 
   ngOnInit() {
-    this.setComponentState();
+    this.setComponentState(this.playerService.state);
 
     this.searchRequestEvent.subscribe(request => this.playerService.init(request));
 
     this.playerService.audio.onended = this.handleEnded.bind(this);
     this.playerService.audio.ontimeupdate = this.handleTimeUpdate.bind(this);
-    this.playerService.onStateChange.subscribe(state => this.setComponentState());
+    this.playerService.onStateChange.subscribe(state => this.setComponentState(state));
   }
 
   handleEnded(e) {
@@ -63,14 +63,14 @@ export class MusicPlayerBlockComponent implements OnInit {
     this.playerService.prev();
   }
 
-  setComponentState() {
+  setComponentState(state: PlayerState) {
     this.track = this.playerService.track;
-    this.playing = this.playerService.state == PlayerState.PLAY;
-    this.playerButtonEnabled = this.playerService.state != PlayerState.INIT
-      && this.playerService.state != PlayerState.IS_EMPTY
-      && this.playerService.state != PlayerState.LOAD_ERROR;
+    this.playing = state == PlayerState.PLAY;
+    this.playerButtonEnabled = state != PlayerState.INIT
+      && state != PlayerState.IS_EMPTY
+      && state != PlayerState.LOAD_ERROR;
 
-    switch (this.playerService.state) {
+    switch (state) {
       case PlayerState.INIT:
         this.message = MusicPlayerBlockComponent.startInfo;
         break;

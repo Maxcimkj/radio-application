@@ -10,18 +10,22 @@ const httpOptions = {
 
 @Injectable()
 export class TrackService {
-  private tracksUrl = 'api/tracks';
-
   constructor(private http: HttpClient, private logService: LogService) {
   }
 
   getTrackByStyle(style): Observable<Track[]> {
-    let url = this.tracksUrl + '?style=' + style;
+    let url = `api/style/${style}/tracks`;
+    this.logRequestUrl(url);
     return this.http.get<Track[]>(url);
   }
 
   getTrackByArtist(artist): Observable<Track[]> {
-    let url = this.tracksUrl + '?artist=' + artist;
+    let url = `api/artist/${artist}/tracks`;
+    this.logRequestUrl(url);
     return this.http.get<Track[]>(url);
+  }
+
+  logRequestUrl(url) {
+    this.logService.log("TrackService", "Send request to url:" + url);
   }
 }

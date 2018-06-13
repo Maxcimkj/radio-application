@@ -13,19 +13,19 @@ export class MusicSearchComponent implements OnInit {
   searchParams = new TrackSearchParams(SearchType.STYLE, '');
   searchTypes = Object.keys(SearchType);
 
-  constructor(private logService:LogService) {
+  constructor(private logService: LogService) {
   }
 
   ngOnInit() {
   }
 
-  onSelectSearchType(type) {
-    this.searchParams.type = type;
+  onSelectSearchType(type:string) {
+    this.searchParams.type = SearchType[type];
   }
 
   onSubmit() {
-    this.logService.log(this, 'submit search form: ' + this.searchParams.search + ' '
-      + this.searchParams.type);
+    this.logService.log("MusicSearchComponent", 'submit search form: '
+      + this.searchParams.search + ' ' + this.searchParams.type);
     this.searchRequestEvent.emit(this.searchParams);
   }
 }

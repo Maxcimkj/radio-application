@@ -6,10 +6,9 @@
   "apps": [
     {
       "root": "src",
-      "outDir": "dist",
+      "outDir": "../service/src/main/resources/static",
       "assets": [
-        "assets",
-        "vinil_disc_image.gif"
+        "assets"
       ],
       "index": "index.html",
       "main": "main.ts",

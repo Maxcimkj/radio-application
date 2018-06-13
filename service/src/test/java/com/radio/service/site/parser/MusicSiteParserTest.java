@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import com.radio.service.site.parser.IMusicSiteParser.TrackBlock;
+import com.radio.service.site.parser.IMusicSiteParser.Tracks;
 import org.junit.Assert;
 
 import java.util.*;
@@ -30,25 +30,25 @@ public class MusicSiteParserTest {
     public void searchTracksByStyleTest() throws Exception {
         String testMusicStyle = "Metal";
 
-        Optional<TrackBlock> searchedTracks = siteParser.searchTracksByStyle(testMusicStyle);
-        TrackBlock trackBlock = searchedTracks.orElseThrow(() -> new AssertionError("Не найдено треков"));
+        Optional<Tracks> searchedTracks = siteParser.getRandomTracksByStyle(testMusicStyle);
+        Tracks tracks = searchedTracks.orElseThrow(() -> new AssertionError("Не найдено треков"));
 
         int minimumTrackSize = configService.getCountReleaseInResponse() * 2;
-        baseCheck(trackBlock, minimumTrackSize, "bg");
+        baseCheck(tracks, minimumTrackSize, "bg");
     }
 
     @Test
     public void searchTracksByArtistTest() throws Exception {
         String testArtist = "Slipknot";
 
-        Optional<TrackBlock> searchedTracks = siteParser.searchTracksByArtist(testArtist);
-        TrackBlock trackBlock = searchedTracks.orElseThrow(() -> new Exception("Не найдено треков"));
+        Optional<Tracks> searchedTracks = siteParser.getRandomTracksByArtist(testArtist);
+        Tracks tracks = searchedTracks.orElseThrow(() -> new Exception("Не найдено треков"));
 
         int minimumTrackSize = configService.getCountReleaseInResponse() * 2;
-        baseCheck(trackBlock, minimumTrackSize, "bg");
+        baseCheck(tracks, minimumTrackSize, "bg");
     }
 
-    private void baseCheck(TrackBlock trackBlock, int countTracks, String assertType) {
+    private void baseCheck(Tracks trackBlock, int countTracks, String assertType) {
         Collection<Track> tracks = trackBlock.tracks;
         Collection<Style> styles = trackBlock.styles;
 

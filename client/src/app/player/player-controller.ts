@@ -16,7 +16,7 @@ export enum PlayerState {
 }
 
 @Injectable()
-export class PlayerService {
+export class PlayerController {
   searchParams: TrackSearchParams;
 
   track: Track;
@@ -36,17 +36,19 @@ export class PlayerService {
   }
 
   load() {
+    this.logService.log("PlayerController", "Search params: " + JSON.stringify(this.searchParams));
     let trackObservable: Observable<Track[]>;
     switch (this.searchParams.type) {
       case SearchType.STYLE:
         trackObservable = this.musicService.getTrackByStyle(this.searchParams.search);
         break;
-      default:
       case SearchType.ARTIST:
         trackObservable = this.musicService.getTrackByArtist(this.searchParams.search);
+        break;
     }
-    trackObservable.subscribe(inputTracks => {
-        this.logService.log(this, "Player component: loaded tracks: " + JSON.stringify(inputTracks as Track[]));
+    trackObservable.subscribe(
+      inputTracks => {
+        this.logService.log("PlayerController", "Loaded tracks: " + JSON.stringify(inputTracks as Track[]));
         if (inputTracks.length > 0) {
           this.tracks = new TrackIterator(inputTracks);
           this.next();
@@ -57,7 +59,7 @@ export class PlayerService {
         }
       },
       error => {
-        this.logService.error(this, "(Get tracks): " + error);
+        this.logService.error("PlayerController", "(Get tracks): " + JSON.stringify(error));
         this.tracks = new TrackIterator([]);
         this.track = undefined;
         this.changeState(PlayerState.LOAD_ERROR);

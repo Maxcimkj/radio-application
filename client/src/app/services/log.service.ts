@@ -6,11 +6,11 @@ export class LogService {
   constructor() {
   }
 
-  public log(component, message: String) {
+  public log(component: String, message: String) {
     console.log("LOG. " + component + "," + message)
   }
 
-  public error(component, message: String) {
+  public error(component: String, message: String) {
     console.log("ERROR. " + component + ", " + message)
   }
 }

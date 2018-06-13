@@ -31,9 +31,9 @@ public class OneTwoTvParserMusic implements IMusicSiteParser {
         this.countReleaseInResponse = configService.getCountReleaseInResponse();
     }
 
-    public Optional<TrackBlock> searchTracksByStyle(String style) throws Exception {
-        final List<Track> tracks = new ArrayList<>();
-        final Set<Style> styles = new HashSet<>();
+    public Optional<Tracks> getRandomTracksByStyle(String style) throws Exception {
+        final List<Track> outTracks = new ArrayList<>();
+        final Set<Style> outStyles = new HashSet<>();
 
         final Index nextTrackIndex = new Index(0);
 
@@ -44,16 +44,16 @@ public class OneTwoTvParserMusic implements IMusicSiteParser {
             Integer[] selectedSignerIndexes = generateUniqueRandomNumber(this.countReleaseInResponse, artistMrkps.size());
             //random select and add tracks
             for (int index : selectedSignerIndexes) {
-                addTracksFromRandomReleases(artistMrkps.get(index), tracks, styles, nextTrackIndex, 1);
+                addTracksFromRandomReleases(artistMrkps.get(index), outTracks, outStyles, nextTrackIndex, 1);
             }
         }
-
-        return !tracks.isEmpty() ? Optional.of(new TrackBlock(tracks, styles)) : Optional.empty();
+        Collections.shuffle(outTracks);
+        return !outTracks.isEmpty() ? Optional.of(new Tracks(outTracks, outStyles)) : Optional.empty();
     }
 
-    public Optional<TrackBlock> searchTracksByArtist(String artist) throws Exception {
-        final List<Track> tracks = new ArrayList<>();
-        final Set<Style> styles = new HashSet<>();
+    public Optional<Tracks> getRandomTracksByArtist(String artist) throws Exception {
+        final List<Track> outTracks = new ArrayList<>();
+        final Set<Style> outStyles = new HashSet<>();
 
         final Index nextTrackId = new Index(0);
 
@@ -63,9 +63,10 @@ public class OneTwoTvParserMusic implements IMusicSiteParser {
             //select first artist
             Element searchedArtist = artistMrkps.first();
             //random select and add tracks
-            addTracksFromRandomReleases(searchedArtist, tracks, styles, nextTrackId, countReleaseInResponse);
+            addTracksFromRandomReleases(searchedArtist, outTracks, outStyles, nextTrackId, countReleaseInResponse);
         }
-        return !tracks.isEmpty() ? Optional.of(new TrackBlock(tracks, styles)) : Optional.empty();
+        Collections.shuffle(outTracks);
+        return !outTracks.isEmpty() ? Optional.of(new Tracks(outTracks, outStyles)) : Optional.empty();
     }
 
     private Elements getArtistsMrkps(String searchUrl) throws Exception {
@@ -75,7 +76,7 @@ public class OneTwoTvParserMusic implements IMusicSiteParser {
 
     private void addTracksFromRandomReleases(Element atristMrkp, final List<Track> trackOut, final Set<Style> styleOut,
                                              Index nextTrackId, int countReleases) throws Exception {
-        //get releases pagea
+        //get releases page
         String urlToSignerReleases = atristMrkp.select("a.name")
                 .first().attr("href");
         Document releasesPage = Jsoup.connect(

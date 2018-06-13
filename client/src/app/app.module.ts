@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
 import {StyleService} from "./services/style.service";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api";
 import {InMemoryMusicDataService} from "./services/in-memory-music-data.service";
 
@@ -15,8 +15,9 @@ import {MusicProgressComponent} from './player/music-progress/music-progress.com
 import {MusicPlayerBlockComponent} from './player/music-player-block/music-player-block.component';
 
 import {TrackService} from "./services/track.service";
-import {PlayerService} from "./player/player.service";
+import {PlayerController} from "./player/player-controller";
 import {LogService} from "./services/log.service";
+import {BaseRequestInterceptor} from "./base-request-interceptor";
 
 @NgModule({
   declarations: [
@@ -30,15 +31,15 @@ import {LogService} from "./services/log.service";
   imports: [
     BrowserModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryMusicDataService, {dataEncapsulation: false}),
     FormsModule
   ],
   providers: [
     StyleService,
     TrackService,
-    PlayerService,
-    LogService],
+    PlayerController,
+    LogService,
+    {provide: HTTP_INTERCEPTORS, useClass: BaseRequestInterceptor, multi: true},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

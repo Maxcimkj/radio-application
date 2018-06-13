@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MusicSearchComponent } from './style-select.component';
+import { MusicSearchComponent } from './music-search.component';
 
 describe('StyleSelectComponent', () => {
   let component: MusicSearchComponent;
