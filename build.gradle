@@ -8,3 +8,13 @@ allprojects {
         maven { url "https://repo.spring.io/milestone" }
     }
 }
+
+/**
+ * Frontend start on embedded into spring boot tomcat.
+ * So first one is executed build angular client to static resources spring boot service.
+ */
+task build {
+    doFirst {
+        project(":client").tasks.buildClient.execute()
+    }
+}

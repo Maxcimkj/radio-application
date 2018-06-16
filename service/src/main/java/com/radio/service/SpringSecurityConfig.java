@@ -1,5 +1,6 @@
 package com.radio.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -23,16 +24,15 @@ import java.io.PrintWriter;
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    IConfigService configService;
+
     @Bean
     public UserDetailsService userDetailsService() {
-        // Get the user credentials from the console (or any other source):
-        String username = "user";
-        String password = "password";
-
-        // Set the inMemoryAuthentication object with the given credentials:
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        String encodedPassword = passwordEncoder().encode(password);
-        manager.createUser(User.withUsername(username).password(encodedPassword).roles("USER").build());
+        String encodedPassword = passwordEncoder().encode(configService.getAppPassword());
+        manager.createUser(User.withUsername(configService.getAppUser())
+                .password(encodedPassword).roles("USER").build());
         return manager;
     }
 

@@ -2,22 +2,19 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/com
 import {Observable} from "rxjs/Observable";
 import {LogService} from "./services/log.service";
 import {Injectable} from "@angular/core";
+import {environment} from "../environments/environment";
 
 @Injectable()
 export class BaseRequestInterceptor implements HttpInterceptor {
-  static baseUrl = 'http://localhost:8080/';
-  static user = "user";
-  static password = "password";
-
   constructor(private logService: LogService) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     req = req.clone({
-      url: BaseRequestInterceptor.baseUrl + req.url,
+      url: environment.baseUrl + req.url,
       headers: req.headers
         .append("Authorization", "Basic "
-          + btoa(BaseRequestInterceptor.user + ":" + BaseRequestInterceptor.password))
+          + btoa(environment.securityApiKey))
         .append("Content-Type", "application/x-www-form-urlencoded")
     });
 
