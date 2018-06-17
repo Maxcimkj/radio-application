@@ -1,6 +1,6 @@
 package com.radio.service.site.parser;
 
-import com.radio.service.IConfigService;
+import com.radio.service.ConfigService;
 import com.radio.service.ServiceRadioApplication;
 import com.radio.service.model.Style;
 import com.radio.service.model.Track;
@@ -24,7 +24,7 @@ public class MusicSiteParserTest {
     private IMusicSiteParser siteParser;
 
     @Autowired
-    private IConfigService configService;
+    private ConfigService configService;
 
     @Test
     public void searchTracksByStyleTest() throws Exception {

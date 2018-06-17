@@ -1,6 +1,6 @@
 package com.radio.service.controllers;
 
-import com.radio.service.IConfigService;
+import com.radio.service.ConfigService;
 import com.radio.service.ServiceRadioApplication;
 import com.radio.service.model.StyleRepository;
 import org.junit.Before;
@@ -48,7 +48,7 @@ public class MusicRestControllerTest {
     private WebApplicationContext webApplicationContext;
 
     @Autowired
-    private IConfigService configService;
+    private ConfigService configService;
 
     @Autowired
     private StyleRepository styleRepository;

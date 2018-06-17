@@ -1,6 +1,6 @@
 package com.radio.service.site.parser;
 
-import com.radio.service.IConfigService;
+import com.radio.service.ConfigService;
 import com.radio.service.model.Style;
 import com.radio.service.model.Track;
 
@@ -27,7 +27,7 @@ public class OneTwoTvParserMusic implements IMusicSiteParser {
     private int countReleaseInResponse;
 
     @Autowired
-    public OneTwoTvParserMusic(IConfigService configService) {
+    public OneTwoTvParserMusic(ConfigService configService) {
         this.countReleaseInResponse = configService.getCountReleaseInResponse();
     }
 

@@ -25,7 +25,7 @@ import java.io.PrintWriter;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    IConfigService configService;
+    ConfigService configService;
 
     @Bean
     public UserDetailsService userDetailsService() {
