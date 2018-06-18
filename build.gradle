@@ -17,4 +17,15 @@ task build {
     doFirst {
         project(":client").tasks.buildClient.execute()
     }
+    doLast {
+        copyBuild.execute()
+    }
+}
+
+/**
+ * Copy executable spring boot jar in base build dir
+ */
+task copyBuild(type: Copy) {
+    from ("service/build/libs/")
+    into ("build")
 }

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import com.radio.service.site.parser.IMusicSiteParser.Tracks;
 import org.junit.Assert;
 
 import java.util.*;
@@ -21,7 +20,7 @@ import java.util.stream.Collectors;
 @WebAppConfiguration
 public class MusicSiteParserTest {
     @Autowired
-    private IMusicSiteParser siteParser;
+    private OneTwoTvParserMusic siteParser;
 
     @Autowired
     private ConfigService configService;

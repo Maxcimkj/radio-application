@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Service
-public class OneTwoTvParserMusic implements IMusicSiteParser {
+public class OneTwoTvParserMusic {
     private static final String BASE_URL_TEMPL = "http://onetwo.tv%s";
     private static final String SEARCH_BY_ARTIST_URL_TEMPL = "http://onetwo.tv/search/artists/?query=%s";
     private static final String SEARCH_BY_STYLE_URL_TEMPL = "http://onetwo.tv/search/styles/?query=%s";
@@ -31,7 +31,7 @@ public class OneTwoTvParserMusic implements IMusicSiteParser {
         this.countReleaseInResponse = configService.getCountReleaseInResponse();
     }
 
-    public Optional<Tracks> getRandomTracksByStyle(String style) throws Exception {
+    public Optional<List<Track>> getRandomTracksByStyle(String style) throws Exception {
         final List<Track> outTracks = new ArrayList<>();
         final Set<Style> outStyles = new HashSet<>();
 
@@ -48,10 +48,10 @@ public class OneTwoTvParserMusic implements IMusicSiteParser {
             }
         }
         Collections.shuffle(outTracks);
-        return !outTracks.isEmpty() ? Optional.of(new Tracks(outTracks, outStyles)) : Optional.empty();
+        return !outTracks.isEmpty() ? Optional.of(outTracks) : Optional.empty();
     }
 
-    public Optional<Tracks> getRandomTracksByArtist(String artist) throws Exception {
+    public Optional<List<Track>> getRandomTracksByArtist(String artist) throws Exception {
         final List<Track> outTracks = new ArrayList<>();
         final Set<Style> outStyles = new HashSet<>();
 
@@ -66,7 +66,7 @@ public class OneTwoTvParserMusic implements IMusicSiteParser {
             addTracksFromRandomReleases(searchedArtist, outTracks, outStyles, nextTrackId, countReleaseInResponse);
         }
         Collections.shuffle(outTracks);
-        return !outTracks.isEmpty() ? Optional.of(new Tracks(outTracks, outStyles)) : Optional.empty();
+        return !outTracks.isEmpty() ? Optional.of(outTracks) : Optional.empty();
     }
 
     private Elements getArtistsMrkps(String searchUrl) throws Exception {

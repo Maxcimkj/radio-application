@@ -2,7 +2,6 @@ package com.radio.service.controllers;
 
 import com.radio.service.ConfigService;
 import com.radio.service.ServiceRadioApplication;
-import com.radio.service.model.StyleRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,9 +48,6 @@ public class MusicRestControllerTest {
 
     @Autowired
     private ConfigService configService;
-
-    @Autowired
-    private StyleRepository styleRepository;
 
     @Autowired
     void setConverters(HttpMessageConverter<?>[] converters) {
