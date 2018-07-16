@@ -13,64 +13,46 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.junit.Assert;
 
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.function.BiFunction;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ServiceRadioApplication.class)
 @WebAppConfiguration
 public class MusicSiteParserTest {
     @Autowired
-    private OneTwoTvParserMusic siteParser;
+    private OneTwoTvMuiscParser siteParser;
 
     @Autowired
     private ConfigService configService;
+
+    private static BiFunction<List<Track>, Integer, Boolean> tracksSizeGtThenCheck =
+            (tracks, expectSize) -> tracks.size() > expectSize;
 
     @Test
     public void searchTracksByStyleTest() throws Exception {
         String testMusicStyle = "Metal";
 
-        Optional<Tracks> searchedTracks = siteParser.getRandomTracksByStyle(testMusicStyle);
-        Tracks tracks = searchedTracks.orElseThrow(() -> new AssertionError("Не найдено треков"));
+        Optional<List<Track>> searchedTracks = siteParser.getRandomTracksByStyle(testMusicStyle);
+        List<Track> tracks = searchedTracks.orElseThrow(() -> new AssertionError("Не найдено треков"));
 
         int minimumTrackSize = configService.getCountReleaseInResponse() * 2;
-        baseCheck(tracks, minimumTrackSize, "bg");
+        Assert.assertTrue(tracksSizeGtThenCheck.apply(tracks, minimumTrackSize));
+        checkTrackContent(tracks);
     }
 
     @Test
     public void searchTracksByArtistTest() throws Exception {
         String testArtist = "Slipknot";
 
-        Optional<Tracks> searchedTracks = siteParser.getRandomTracksByArtist(testArtist);
-        Tracks tracks = searchedTracks.orElseThrow(() -> new Exception("Не найдено треков"));
+        Optional<List<Track>> searchedTracks = siteParser.getRandomTracksByArtist(testArtist);
+        List<Track> tracks = searchedTracks.orElseThrow(() -> new Exception("Не найдено треков"));
 
         int minimumTrackSize = configService.getCountReleaseInResponse() * 2;
-        baseCheck(tracks, minimumTrackSize, "bg");
+        Assert.assertTrue(tracksSizeGtThenCheck.apply(tracks, minimumTrackSize));
+        checkTrackContent(tracks);
     }
 
-    private void baseCheck(Tracks trackBlock, int countTracks, String assertType) {
-        Collection<Track> tracks = trackBlock.tracks;
-        Collection<Style> styles = trackBlock.styles;
-
-        switch (assertType) {
-            case "eq":
-                Assert.assertTrue(tracks.size() == countTracks);
-                break;
-            case "gt":
-                Assert.assertTrue(tracks.size() >= countTracks);
-                break;
-            case "ls":
-                Assert.assertTrue(tracks.size() <= countTracks);
-                break;
-        }
-        Assert.assertNotNull(tracks);
-        Assert.assertNotNull(styles);
-        Assert.assertTrue(styles.size() > 0);
-
-        checkTracks(tracks);
-        checkEqualsInputStylesAndTrackStyles(tracks, styles);
-    }
-
-    private void checkTracks(Collection<Track> tracks) {
+    private void checkTrackContent(Collection<Track> tracks) {
         Set<String> urls = new HashSet<>();
         Set<Long> ids = new HashSet<>();
         for (Track track : tracks) {
@@ -90,21 +72,8 @@ public class MusicSiteParserTest {
             Assert.assertNotNull(track.getName());
             Assert.assertNotNull(track.getArtist());
             Assert.assertNotNull(track.getRelease());
-            //Проверка имени
-            Assert.assertNotNull(track.getArtist());
-            Assert.assertNotNull(track.getRelease());
-            Assert.assertNotNull(track.getName());
             //Проверка наличия продолжительности
             Assert.assertNotNull(track.getDuration());
         }
-    }
-
-    /**
-     * Проверка соответствия полученных стилей и стилей в треках
-     */
-    private void checkEqualsInputStylesAndTrackStyles(Collection<Track> tracks, Collection<Style> styles) {
-        Set<Style> stylesFromTracks = tracks.stream()
-                .flatMap(track -> track.getStyles().stream()).collect(Collectors.toSet());
-        Assert.assertEquals(styles, stylesFromTracks);
     }
 }

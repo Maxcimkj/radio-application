@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Service
-public class OneTwoTvParserMusic {
+public class OneTwoTvMuiscParser {
     private static final String BASE_URL_TEMPL = "http://onetwo.tv%s";
     private static final String SEARCH_BY_ARTIST_URL_TEMPL = "http://onetwo.tv/search/artists/?query=%s";
     private static final String SEARCH_BY_STYLE_URL_TEMPL = "http://onetwo.tv/search/styles/?query=%s";
@@ -27,10 +27,19 @@ public class OneTwoTvParserMusic {
     private int countReleaseInResponse;
 
     @Autowired
-    public OneTwoTvParserMusic(ConfigService configService) {
+    public OneTwoTvMuiscParser(ConfigService configService) {
         this.countReleaseInResponse = configService.getCountReleaseInResponse();
     }
 
+    /**
+     * Method request search artist page by style. Select random artists by page,
+     * then select random releases by selected artists. And return collected tracks from
+     * selected releases.
+     *
+     * @param style - style name for search
+     * @return - random tracks by style
+     * @throws Exception
+     */
     public Optional<List<Track>> getRandomTracksByStyle(String style) throws Exception {
         final List<Track> outTracks = new ArrayList<>();
         final Set<Style> outStyles = new HashSet<>();
@@ -41,16 +50,25 @@ public class OneTwoTvParserMusic {
         Elements artistMrkps = getArtistsMrkps(searchUrl);
         if (!artistMrkps.isEmpty()) {
             //select random artist indexes
-            Integer[] selectedSignerIndexes = generateUniqueRandomNumber(this.countReleaseInResponse, artistMrkps.size());
+            Integer[] selectedArtistIndexes = generateUniqueRandomNumbers(this.countReleaseInResponse, artistMrkps.size());
             //random select and add tracks
-            for (int index : selectedSignerIndexes) {
-                addTracksFromRandomReleases(artistMrkps.get(index), outTracks, outStyles, nextTrackIndex, 1);
+            for (int index : selectedArtistIndexes) {
+                addTracksFromRandomArtistReleases(artistMrkps.get(index), outTracks, outStyles, nextTrackIndex, 1);
             }
         }
         Collections.shuffle(outTracks);
         return !outTracks.isEmpty() ? Optional.of(outTracks) : Optional.empty();
     }
 
+    /**
+     * Method request search artist page by name. Select first artist by page,
+     * then select random releases by selected artist. And return collected tracks from
+     * selected releases.
+     *
+     * @param artist - artist name for search
+     * @return - random tracks by artist
+     * @throws Exception
+     */
     public Optional<List<Track>> getRandomTracksByArtist(String artist) throws Exception {
         final List<Track> outTracks = new ArrayList<>();
         final Set<Style> outStyles = new HashSet<>();
@@ -63,7 +81,7 @@ public class OneTwoTvParserMusic {
             //select first artist
             Element searchedArtist = artistMrkps.first();
             //random select and add tracks
-            addTracksFromRandomReleases(searchedArtist, outTracks, outStyles, nextTrackId, countReleaseInResponse);
+            addTracksFromRandomArtistReleases(searchedArtist, outTracks, outStyles, nextTrackId, countReleaseInResponse);
         }
         Collections.shuffle(outTracks);
         return !outTracks.isEmpty() ? Optional.of(outTracks) : Optional.empty();
@@ -74,8 +92,8 @@ public class OneTwoTvParserMusic {
         return searchedArtistPage.select("div.user-artists");
     }
 
-    private void addTracksFromRandomReleases(Element atristMrkp, final List<Track> trackOut, final Set<Style> styleOut,
-                                             Index nextTrackId, int countReleases) throws Exception {
+    private void addTracksFromRandomArtistReleases(Element atristMrkp, final List<Track> trackOut, final Set<Style> styleOut,
+                                                   Index nextTrackId, int countReleases) throws Exception {
         //get releases page
         String urlToSignerReleases = atristMrkp.select("a.name")
                 .first().attr("href");
@@ -86,7 +104,7 @@ public class OneTwoTvParserMusic {
         Elements releaseRefMrkps = releasesPage.select("div.releases-covers div.releases-cover-info a");
         if (!releaseRefMrkps.isEmpty()) {
             if (releaseRefMrkps.size() > countReleases) {
-                Integer[] selectedRelease = generateUniqueRandomNumber(countReleases, releaseRefMrkps.size());
+                Integer[] selectedRelease = generateUniqueRandomNumbers(countReleases, releaseRefMrkps.size());
                 for (int i = 0; i < countReleases; i++) {
                     releasePageUrls.add(releaseRefMrkps.get(selectedRelease[i]).attr("href"));
                 }
@@ -149,7 +167,7 @@ public class OneTwoTvParserMusic {
         }
     }
 
-    private Integer[] generateUniqueRandomNumber(int limit, int max) {
+    private Integer[] generateUniqueRandomNumbers(int limit, int max) {
         List<Integer> numbers = IntStream.range(0, max).boxed().collect(Collectors.toList());
         Collections.shuffle(numbers);
         return numbers.subList(0, limit).stream().toArray(Integer[]::new);

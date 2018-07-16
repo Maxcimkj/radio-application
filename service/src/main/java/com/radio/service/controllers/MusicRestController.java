@@ -3,7 +3,7 @@ package com.radio.service.controllers;
 import com.radio.service.exceptions.ArtistsByStyleNotFoundException;
 import com.radio.service.exceptions.ServiceErrorException;
 import com.radio.service.model.Track;
-import com.radio.service.site.parser.OneTwoTvParserMusic;
+import com.radio.service.site.parser.OneTwoTvMuiscParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +18,10 @@ import java.util.Optional;
 @RequestMapping(value = "/api")
 public class MusicRestController {
 
-    private OneTwoTvParserMusic siteParser;
+    private OneTwoTvMuiscParser siteParser;
 
     @Autowired
-    public MusicRestController(OneTwoTvParserMusic siteParser) {
+    public MusicRestController(OneTwoTvMuiscParser siteParser) {
         this.siteParser = siteParser;
     }
 
